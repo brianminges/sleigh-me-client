@@ -9,6 +9,9 @@ import { MemberGroups } from "./members/MemberGroups"
 import { MembersList } from "./members/MembersList"
 import { GroupsList } from "./groups/GroupsList"
 import { GroupDetail } from "./groups/GroupDetail"
+import { NavBar } from "./nav/NavBar"
+import { GroupForm } from "./groups/GroupForm"
+import { PrivateRoutes } from "./auth/PrivateRoutes"
 
 export const SleighMe = () => {
   const [ token, setTokenState ] = useState(localStorage.getItem('token'))
@@ -26,7 +29,26 @@ export const SleighMe = () => {
   return (
     <>
         <Routes>
-            <Route
+            <Route element={<PrivateRoutes/>}>
+              <Route exact path="/groups" element={<GroupsList/>} />
+            </Route>
+
+
+            <Route 
+              exact path="/login" 
+              element={<Login token={token} setToken={setToken} setUserId={setUserId} />} />
+            <Route 
+              exact path="/register" 
+              element={<Register token={token} setToken={setToken} />} />         
+        </Routes>
+    </>
+  )
+}
+ 
+export default SleighMe;
+
+
+            {/* <Route
               path="/"
               element={localStorage.getItem("sm_token") 
                 ? 
@@ -34,9 +56,12 @@ export const SleighMe = () => {
                 : 
                   <Navigate to="/login" replace />
               }
-            />
-            <Route 
-              path="/" 
+            /> */}
+
+
+
+             {/* <Route 
+              exact path="/" 
               element={<MyGroups setUserId={setUserId}/>} />
             <Route 
               exact path="/members" 
@@ -51,16 +76,5 @@ export const SleighMe = () => {
               exact path="/groups/:groupId" 
               element={<GroupDetail/>} />
             <Route 
-              exact path="/login" 
-              element={<Login token={token} setToken={setToken} setUserId={setUserId} />} />
-            <Route 
-              exact path="/register" 
-              element={<Register token={token} setToken={setToken} />} />         
-        </Routes>
-    </>
-  )
-}
- 
-export default SleighMe;
-
- 
+              exact path="/groups/create" 
+              element={<GroupForm/>} /> */}
