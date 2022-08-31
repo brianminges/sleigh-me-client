@@ -17,7 +17,7 @@ export const SleighMe = () => {
   const [ token, setTokenState ] = useState(localStorage.getItem('token'));
 
   const setToken = (newToken) => {
-    localStorage.setItem('sm_token', newToken)
+    localStorage.setItem('token', newToken)
     setTokenState(newToken)
   }
 
@@ -36,15 +36,15 @@ export const SleighMe = () => {
         <Route exact path="/login" element={<Login token={token} setToken={setToken} setUserId={setUserId} />} />
 
         <Route exact path="/register" element={<Register token={token} setToken={setToken} />} />  
+      
 
-        <Route exact path="/" element={<MyGroups/>}/>
-        <Route exact path="/groups" element={<GroupsList/>} />
-        <Route exact path="/groups/:groupId" element={<GroupDetail/>} />
-        <Route exact path="/groups/create" element={<GroupForm/>} />
-        <Route exact path="/members" element={<MembersList />} />
-        <Route exact path="/members/:userId" element={<MemberGroups/>} />
-
-        <Route element={<PrivateRoutes/>}>
+        <Route element={<PrivateRoutes token={token}/>}>
+          <Route exact path="/" element={<MyGroups/>}/>
+          <Route exact path="/groups" element={<GroupsList/>} />
+          <Route exact path="/groups/:groupId" element={<GroupDetail/>} />
+          <Route exact path="/groups/create" element={<GroupForm/>} />
+          <Route exact path="/members" element={<MembersList />} />
+          <Route exact path="/members/:userId" element={<MemberGroups/>} />
         </Route>
       </Routes>
     </>

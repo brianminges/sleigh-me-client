@@ -36,7 +36,7 @@ export const Register = () => {
                 .then(res => res.json())
                 .then(res => {
                     if ("token" in res) {
-                        localStorage.setItem("sm_token", res.token)
+                        localStorage.setItem("token", res.token)
                         history("/login")
                     }
                 })

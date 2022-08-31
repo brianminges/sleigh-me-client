@@ -4,7 +4,7 @@ import "./Auth.css"
 import "./../SleighMe.css"
 
 
-export const Login = ({ setUserId }) => {
+export const Login = ({ setUserId, setToken }) => {
  
     const username = useRef()
     const password = useRef()
@@ -28,7 +28,8 @@ export const Login = ({ setUserId }) => {
             .then(res => res.json())
             .then(res => {
                 if ("valid" in res && res.valid && "token" in res) {
-                    localStorage.setItem("sm_token", res.token)
+                    // localStorage.setItem("token", res.token)
+                    setToken(res.token)
                     setUserId(res.userId)
                     history('/')
 
