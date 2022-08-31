@@ -17,3 +17,16 @@ export const getGroupById = (id) => {
     })
     .then(res => res.json())
 }
+
+export const addGroup = (newGroup) => {
+    return fetch(`${remoteURL}/groups`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("sm_token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON. stringify(newGroup)
+    }).then(res => res.json())
+}
+
+

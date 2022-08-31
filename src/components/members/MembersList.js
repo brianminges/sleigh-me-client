@@ -12,7 +12,7 @@ export const MembersList = () => {
     return (
         <>
         <article className="groups__list">
-        <h2>My Groups</h2>
+        <h2>All Members</h2>
             {members.map(member =>
                 <MemberGroupCard
                 key={member.id}

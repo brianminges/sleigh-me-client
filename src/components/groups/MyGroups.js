@@ -7,19 +7,19 @@ import "./MyGroups.css"
 
 
 export const MyGroups = ( {setUserId}  ) => {
-    const [member, setMember] = useState({});
-    const userId = setUserId
-    console.log(userId)
+    // const [member, setMember] = useState({});
+    // const userId = setUserId
+    // console.log(userId)
 
-    useEffect(() => {
-        getMemberById(userId).then(data => setMember(data))
-    }, []) 
+    // useEffect(() => {
+    //     getMemberById(userId).then(data => setMember(data))
+    // }, []) 
 
     
 
     return (
         <>
-        <h1>Hi</h1>
+        <h1>'/'</h1>
         </>
     )
     

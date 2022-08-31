@@ -5,6 +5,8 @@ import { MemberGroupCard } from "./MemberGroupCard";
 // import "./../groups/GroupCard.css"
 import "./MemberGroupCard.css"
 import "./../SleighMe.css"
+import { NavBar } from "../nav/NavBar";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const MemberGroups = () => {
     const [ member, setMember ] = useState([])
@@ -13,6 +15,10 @@ export const MemberGroups = () => {
     useEffect(() => {
         getMemberById(userId).then(data => setMember(data))
     }, [])
+
+    useEffect(() => {
+        console.log(member)
+    }, [member])
     
     if ((member.groups)?.length > 0) {
         return (
@@ -27,6 +33,7 @@ export const MemberGroups = () => {
                     />
             )}
             </article>
+            <NavBar /> 
             </>
         )
     } 
@@ -37,6 +44,7 @@ export const MemberGroups = () => {
             <h2>My Groups</h2>
             <p className="">You are not in any groups.</p>
             </article>
+            <NavBar /> 
             </>
         )
     }

@@ -26,7 +26,7 @@ export const MemberGroupCard = ( { group }) => {
         return (
             <>
             <section className="group__card">
-                <div><h3 className="group__card__name"><Link to={`/groups/${group.id}`}>{group?.name}</Link></h3></div>
+                <div><h3 className="group__card__name"><Link to={`/groups/${group?.id}`}>{group?.name}</Link></h3></div>
                     <div className="group__card__elements">
                         <p className="group__card__host">Hosted by {group?.creator.user.first_name + ' ' + group?.creator.user.last_name}</p>
                         <button  className="group__card__element btn__mini btn__mini__leave">Leave</button>
