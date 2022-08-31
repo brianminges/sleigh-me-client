@@ -1,0 +1,26 @@
+/* .group__detail {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+} */
+
+.group__detail__infobox {
+    background-color: #259aa6;
+    box-shadow: 2px 3px 6px gray;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.group__detail__infobox p {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.group__detail__members p {
+    margin-bottom: 5px;
+}

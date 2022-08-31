@@ -26,10 +26,6 @@ export const SleighMe = () => {
     console.log(localStorage.getItem('userId'))
   }
 
-  useEffect(() => {
-    console.log(token)
-  }, [token])
-
   return (
     <>
       <Routes>
