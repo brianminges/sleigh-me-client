@@ -51,7 +51,7 @@ export const Login = ({ setUserId }) => {
                 <form onSubmit={handleLogin}>
                     <h1>Sleigh Me</h1>
                     <h3>Please sign in</h3>
-                    <div className="page__grid">
+                    <div className="page__grid__auth">
                         <div className="page__grid__top">
                             <fieldset>
                                 <div className="form__fieldset__item form__input">
