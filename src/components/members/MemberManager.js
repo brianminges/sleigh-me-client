@@ -3,7 +3,7 @@ const remoteURL = "http://localhost:8000"
 export const getMemberById = (id) => {
     return fetch(`${remoteURL}/members/${id}`, {
         headers:{
-            "Authorization": `Token ${localStorage.getItem("sm_token")}`
+            "Authorization": `Token ${localStorage.getItem("token")}`
         }
     })
     .then(res => res.json())
@@ -12,7 +12,7 @@ export const getMemberById = (id) => {
 export const getAllMembers = () => {
     return fetch(`${remoteURL}/members`, {
         headers:{
-            "Authorization": `Token ${localStorage.getItem("sm_token")}`
+            "Authorization": `Token ${localStorage.getItem("token")}`
         }
     })
     .then(res => res.json())
