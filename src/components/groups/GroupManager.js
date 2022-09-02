@@ -29,4 +29,14 @@ export const addGroup = (newGroup) => {
     }).then(res => res.json())
 }
 
+export const updateGroup = (group) => { 
+    return fetch(`${remoteURL}/groups/${group.id}`, {
+        method: "PUT",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(group)
+    })
+}
 

@@ -12,13 +12,16 @@ export const GroupDetail = () => {
         getGroupById(groupId).then(data => setGroup(data))
     }, [])
 
-    useEffect(() => {
-        console.log(group)
-    }, [group])
+    // useEffect(() => {
+    //     console.log(group)
+    // }, [group])
 
+    //Changes from yyyy-MM-dd to "weekday, month, date"
     const changeDateFormat = (inputDate) => {
-        let date = new Date(inputDate);
-        
+        //Changes to ISO format
+        const newDate = (inputDate+'T00:00:00')
+         
+        let date = new Date(newDate);
         return date.toLocaleString('en-US', {
             weekday: 'long',  
             day: 'numeric',  
@@ -26,17 +29,34 @@ export const GroupDetail = () => {
         });
     }
 
+    //Changes from military time to standard time
     const changeTimeFormat = (inputTime) => {
         //Checks to make sure inputTime has a value
         if (typeof inputTime === 'string') {
             const time = inputTime.split(':')
             const hours = Number(time[0])
             const minutes = Number(time[1])
-            //Changes from military time to standard time
-            if (hours >= 12) {
-                return (hours-12) + minutes + ' ' + 'p.m.'
-            } else {
-                return hours + minutes + ' ' +  'a.m.'
+
+            if (hours === 0 && minutes === 0) {
+                return "Midnight" + " "
+            } else if (hours === 0 && minutes >= 10) {
+                return "12:" + minutes + " " + "a.m." + " " 
+            } else if (hours === 0 && minutes < 10) {
+                return "12:" + "0" + minutes + " " + "a.m." + " "     
+            } else if (hours === 12 && minutes === 0) {
+                return "Noon" + " "   
+            } else if (hours === 12 && minutes >= 10) {
+                return "12:" + minutes + " " + "p.m." + " "
+            } else if (hours === 12 && minutes < 10) {
+                return "12:" + "0" + minutes + " " + "p.m." + " "          
+            } else if (hours > 12 && minutes >= 10) {
+                return (hours-12) + ":" + minutes + " " + "p.m." + " " 
+            } else if (hours > 12 & minutes < 10) {
+                return (hours-12) + ":" + "0" + minutes + " " + "p.m." + " " 
+            } else if (hours < 12 && minutes >= 10) {
+                return hours + ":" + minutes + " " + "a.m." + " "
+            } else if (hours < 12 && minutes < 10) {
+                return hours + ":" + "0" + minutes + " " + "a.m." + " "  
             }
         }
     }
@@ -69,6 +89,7 @@ export const GroupDetail = () => {
                 <div>
                     <button className="btn">Shuffle Santas</button>
                     <button className="btn">Add user</button>
+                    <Link to={`/groups/${groupId}/edit`}><button className="btn">Edit</button></Link>
                 </div>
                 : 
                 null
