@@ -1,15 +1,29 @@
 import React, { useEffect, useState }from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { addGroup } from "./GroupManager";
+import { addGroup, getGroupById, updateGroup } from "./GroupManager";
+import { NavBar } from "./../nav/NavBar"
 import "./GroupForm.css"
 import "./../SleighMe.css"
-import { NavBar } from "./../nav/NavBar"
+
  
 
 export const GroupForm = () => {
     const [group, setGroup] = useState({});
     const {groupId} = useParams();
     const history = useNavigate();
+
+    useEffect(() => {
+        getGroupById(groupId)
+            .then(data => setGroup({
+                id: data.id,
+                name: data.name,
+                creator: data.creator.id,
+                guidelines: data.guidelines,
+                date: data.date,
+                time: data.time,
+                spend: data.spend
+            }))
+    }, [])
 
     const handleInputChange = (e) => {
         const newGroup = {...group}
@@ -21,91 +35,142 @@ export const GroupForm = () => {
         setGroup(newGroup)
     }
 
+    useEffect(() => {
+        console.log(group)
+    }, [group])
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        addGroup(group).then(() => history('/'))
-        // if (groupId) {
-        //     editGroup(group)
-        //     .then(() => history('/'))
-        // }
+        if (groupId) {
+            const editedGroup = {
+                id: group.id,
+                name: group.name,
+                creator: group.creator,
+                guidelines: group.guidelines,
+                date: group.date,
+                time: group.time,
+                spend: parseInt(group.spend)
+            }
+            updateGroup(editedGroup)
+                .then(() => history(`/groups/${groupId}`))
+        } else {
+            addGroup(group)
+                .then(() => history('/'))
+        }
     }
 
     return (
         <>
         <main className="container__auth">
             <section>
-                <form >
+                <form>
                     {groupId ? <h2>Edit group</h2> : <h2>Create group</h2>}
                     <div className="page__grid__group__form">
                         <div className="page__grid__top">
                             <h3>About your group</h3>
                             <fieldset>
                                 <div className="form__fieldset__item form__input">
-                                    <input 
-                                        type="text" 
-                                        id="name" 
-                                        className="form__input__field" 
-                                        placeholder="Group name"
-                                        maxLength={"20"}
-                                        required 
-                                        autoFocus
-                                        autoComplete="off" 
-                                        onChange={handleInputChange}
-                                        value={group.name}/>
+                                    <div className="form__fieldset__group">
+                                        <div className="form__fieldset__label">
+                                            <label>Name</label>
+                                        </div>
+                                        <div>
+                                            <input 
+                                                type="text" 
+                                                id="name" 
+                                                className="form__input__field" 
+                                                placeholder="Group name"
+                                                maxLength={"20"}
+                                                required 
+                                                autoFocus
+                                                autoComplete="off" 
+                                                onChange={handleInputChange}
+                                                value={group.name}/>
+                                        </div>
+                                    </div>
                                 </div>
                             </fieldset>
 
                             <fieldset>
                                 <div className="form__fieldset__item form__input">
-                                    <textarea 
-                                        id="guidelines"
-                                        className="form__form__field form__textarea__field"
-                                        placeholder="Leave important notes for your group."
-                                        maxLength={"150"}
-                                        required 
-                                        autoComplete="off"
-                                        onChange={handleInputChange}
-                                        value={group.guidelines}>  
-                                    </textarea>
+                                    <div className="form__fieldset__group">
+                                        <div className="form__fieldset__label">
+                                            <label>Guidelines</label>
+                                        </div>
+                                        <div>
+                                            <textarea 
+                                                id="guidelines"
+                                                className="form__form__field form__textarea__field"
+                                                placeholder="Leave important notes for your group."
+                                                maxLength={"150"}
+                                                required 
+                                                autoComplete="off"
+                                                onChange={handleInputChange}
+                                                value={group.guidelines}>  
+                                            </textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </fieldset>
 
                             <fieldset>
                                 <div className="form__fieldset__item form__input">
-                                    <input 
-                                        type="number" 
-                                        id="spend" 
-                                        className="form__input__field" 
-                                        placeholder="Max gift amount"
-                                        min="0"
-                                        required
-                                        autoComplete="off" 
-                                        onChange={handleInputChange}
-                                        value={group.spend}/>
+                                    <div className="form__fieldset__group">
+                                        <div className="form__fieldset__label">
+                                            <label>Maximum gift value</label>
+                                        </div>
+                                        <div>
+                                            <input 
+                                                type="number" 
+                                                id="spend" 
+                                                className="form__input__field" 
+                                                placeholder="$0"
+                                                min="0"
+                                                step="any"
+                                                required
+                                                autoComplete="off" 
+                                                onChange={handleInputChange}
+                                                value={group.spend}/>
+                                        </div>
+                                    </div>
                                 </div>
                             </fieldset>
                             <h3>When will you draw names?</h3>
                             <fieldset>
                                 <div className="form__fieldset__item form__input">
-                                    <input 
-                                        type="date" 
-                                        id="date" 
-                                        className="form__input__field" 
-                                        required
-                                        onChange={handleInputChange}
-                                        value={group.date}/>
+                                    <div className="form__fieldset__group">
+                                        <div className="form__fieldset__label">
+                                            <label>Date</label>
+                                        </div>
+                                        <div>
+                                            <input 
+                                                type="date" 
+                                                id="date" 
+                                                className="form__input__field" 
+                                                required
+                                                onChange={handleInputChange}
+                                                value={group.date}/>
+                                        </div>
+                                    </div>
                                 </div>
                             </fieldset>
 
                             <fieldset>
                                 <div className="form__fieldset__item form__input">
-                                    <input 
-                                        type="time" 
-                                        id="time" 
-                                        className="form__input__field" 
-                                        required 
-                                        onChange={handleInputChange}
-                                        value={group.time}/>
+                                    <div className="form__fieldset__group">
+                                        <div className="form__fieldset__label">
+                                            <label>Time</label>
+                                        </div>
+                                        <div>
+                                            <input 
+                                                type="time" 
+                                                id="time" 
+                                                className="form__input__field" 
+                                                required 
+                                                onChange={handleInputChange}
+                                                value={group.time}/>
+                                        </div>
+                                    </div>
                                 </div>
                             </fieldset>
 

@@ -39,6 +39,7 @@ export const SleighMe = () => {
           <Route exact path="/" element={<MemberGroups/>}/>
           <Route exact path="/groups" element={<GroupsList/>} />
           <Route exact path="/groups/:groupId" element={<GroupDetail/>} />
+          <Route exact path="/groups/:groupId/edit" element={<GroupForm/>} />
           <Route exact path="/groups/create" element={<GroupForm/>} />
 
           <Route exact path="/members" element={<MembersList />} />
