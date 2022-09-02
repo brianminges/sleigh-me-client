@@ -10,7 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const MemberGroups = () => {
     const [ member, setMember ] = useState([])
-    const {userId} = useParams()
+    // const {userId} = useParams()
+
+    const userId = localStorage.getItem("userId")
 
     useEffect(() => {
         getMemberById(userId).then(data => setMember(data))

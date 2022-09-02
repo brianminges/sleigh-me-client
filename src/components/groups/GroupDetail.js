@@ -32,7 +32,7 @@ export const GroupDetail = () => {
             const time = inputTime.split(':')
             const hours = Number(time[0])
             const minutes = Number(time[1])
-            //Changes from military time
+            //Changes from military time to standard time
             if (hours >= 12) {
                 return (hours-12) + minutes + ' ' + 'p.m.'
             } else {
@@ -41,22 +41,7 @@ export const GroupDetail = () => {
         }
     }
 
-    const renderButtons = () => {
-        // if (group.creator) {
-            if (userId === group.creator.id) {
-                return
-                
-                <div>
-                <button>Shuffle Santas</button>
-                <button>Add user</button>
-                </div>
-                
-            } else {
-                return null
-            }
-        // }
-    }
-    
+ 
     //Checks that group.creator has loaded before returning
     if (group.creator) {
         return (
@@ -74,7 +59,7 @@ export const GroupDetail = () => {
             {   group.members 
                 ? 
                 group.members?.map(member => (
-                <p key={member.user.id}><Link to="#" >{member.user.first_name} {member.user.last_name}</Link></p>))
+                <p key={member.user.id}><Link to={`/members/${member.user.id}/profile`} >{member.user.first_name} {member.user.last_name}</Link></p>))
                 :
                 <p>No members.</p>
             }
@@ -85,11 +70,11 @@ export const GroupDetail = () => {
                     <button className="btn">Shuffle Santas</button>
                     <button className="btn">Add user</button>
                 </div>
-                : null
+                : 
+                null
             }
             </article> 
             </>
         )
     }
-   
 }
