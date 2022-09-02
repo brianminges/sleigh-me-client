@@ -9,6 +9,7 @@ import "./NavBar.css"
 export const NavBar = () => {
 
     const history = useNavigate()
+    const userId = localStorage.getItem("userId")
 
     const handleLogout = () => {
         localStorage.clear();
@@ -46,7 +47,7 @@ export const NavBar = () => {
             <div className="navbar__item">
                 <a href="#">
                 <div>
-                    <Link to="/"> <FontAwesomeIcon icon={faUser} /> </Link> 
+                    <Link to={`/members/${userId}/profile`}> <FontAwesomeIcon icon={faUser} /> </Link> 
                 </div>
                 <div>
                     <p className="navbar__label">Profile</p>

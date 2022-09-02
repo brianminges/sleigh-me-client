@@ -1,0 +1,31 @@
+.form__fieldset__select {
+    width: 365px;
+    height: 45px;
+    font-size: 1.15rem;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: rgb(224, 222, 222);
+}
+
+.form__fieldset__group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__fieldset__label {
+    text-align: left;
+    width: 365px;
+    margin-left: 23.5px;
+    font-weight: bold;
+    color: #164b5c;
+}
+
+.form__address__header {
+    margin-top: 1rem;
+}
+
+.form__address__notice {
+    margin-top: -15px;
+    margin-bottom: 1rem;
+}
+

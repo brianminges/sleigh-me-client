@@ -7,11 +7,13 @@ import { Register } from "./auth/Register"
 import { MyGroups } from "./groups/MyGroups"
 import { MemberGroups } from "./members/MemberGroups"
 import { MembersList } from "./members/MembersList"
+import { MemberProfile } from "./members/MemberProfile"
 import { GroupsList } from "./groups/GroupsList"
 import { GroupDetail } from "./groups/GroupDetail"
 import { NavBar } from "./nav/NavBar"
 import { GroupForm } from "./groups/GroupForm"
 import { PrivateRoutes } from "./auth/PrivateRoutes"
+import { ProfileForm } from "./profiles/ProfileForm"
 
 export const SleighMe = () => {
   const [ token, setTokenState ] = useState(localStorage.getItem('token'));
@@ -32,15 +34,18 @@ export const SleighMe = () => {
         <Route exact path="/login" element={<Login token={token} setToken={setToken} setUserId={setUserId} />} />
 
         <Route exact path="/register" element={<Register token={token} setToken={setToken} />} />  
-      
 
         <Route element={<PrivateRoutes token={token}/>}>
-          <Route exact path="/" element={<MyGroups/>}/>
+          <Route exact path="/" element={<MemberGroups/>}/>
           <Route exact path="/groups" element={<GroupsList/>} />
           <Route exact path="/groups/:groupId" element={<GroupDetail/>} />
           <Route exact path="/groups/create" element={<GroupForm/>} />
+
           <Route exact path="/members" element={<MembersList />} />
           <Route exact path="/members/:userId" element={<MemberGroups/>} />
+          <Route exact path="/members/:userId/profile" element={<MemberProfile/>} />
+
+          <Route exact path="/profiles/:profileId/edit" element={<ProfileForm/>} />
         </Route>
       </Routes>
     </>
