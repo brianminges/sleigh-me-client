@@ -8,6 +8,8 @@
     font-family: 'Roboto', sans-serif;
 }
 
+
+
 a {
     text-decoration: none;
     color: #164b5c;
@@ -20,6 +22,7 @@ body {
     border: 1px solid black;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: 0 0 50px #164b5c;
 }
 
 h1 {

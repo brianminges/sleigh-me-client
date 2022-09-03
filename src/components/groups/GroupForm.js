@@ -61,12 +61,11 @@ export const GroupForm = () => {
                 .then(() => history(`/groups/${groupId}`))
         } else {
 
-            const newMember = {
-                member: parseInt(currentUser),
-                group: group.id
-            }
+            // const newMember = {
+            //     member: parseInt(currentUser),
+            //     group: group.id
+            // }
             addGroup(group)
-                // .then(() => joinGroup(newMember, group.id))
                     .then(() => history("/"))
         }
     }
