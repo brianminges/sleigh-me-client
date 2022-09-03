@@ -4,6 +4,8 @@ import { addGroup, getGroupById, updateGroup } from "./GroupManager";
 import { NavBar } from "./../nav/NavBar"
 import "./GroupForm.css"
 import "./../SleighMe.css"
+import { joinGroup } from "../members/MemberManager";
+import { parse } from "@fortawesome/fontawesome-svg-core";
 
  
 
@@ -11,6 +13,7 @@ export const GroupForm = () => {
     const [group, setGroup] = useState({});
     const {groupId} = useParams();
     const history = useNavigate();
+    const currentUser = localStorage.getItem("userId")
 
     useEffect(() => {
         //Checks to see if this is creating or editing. If edit, the API is called.
@@ -57,8 +60,14 @@ export const GroupForm = () => {
             updateGroup(editedGroup)
                 .then(() => history(`/groups/${groupId}`))
         } else {
+
+            const newMember = {
+                member: parseInt(currentUser),
+                group: group.id
+            }
             addGroup(group)
-                .then(() => history('/'))
+                // .then(() => joinGroup(newMember, group.id))
+                    .then(() => history("/"))
         }
     }
 

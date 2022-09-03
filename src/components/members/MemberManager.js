@@ -23,8 +23,26 @@ export const searchMembers = (searchTerm) => {
         headers: {
             "Authorization": `Token ${localStorage.getItem("token")}`
         }
-    })
-    .then(res => res.json())
+    }).then(res => res.json())
 } 
 
- 
+export const joinGroup = (newMember, groupId) => {
+    return fetch(`${remoteURL}/groups/${groupId}/join_group`, {
+        method: 'POST',
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON. stringify(newMember)
+    }).then(res => res.json())
+}
+
+export const leaveGroup = (group) => {
+    return fetch(`${remoteURL}/groups/${group.id}/leave`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(group)
+    })
+}

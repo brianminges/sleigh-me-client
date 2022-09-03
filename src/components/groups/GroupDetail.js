@@ -12,9 +12,9 @@ export const GroupDetail = () => {
         getGroupById(groupId).then(data => setGroup(data))
     }, [])
 
-    // useEffect(() => {
-    //     console.log(group)
-    // }, [group])
+    useEffect(() => {
+        console.log(group)
+    }, [group])
 
     //Changes from yyyy-MM-dd to "weekday, month, date"
     const changeDateFormat = (inputDate) => {
