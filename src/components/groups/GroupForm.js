@@ -13,6 +13,8 @@ export const GroupForm = () => {
     const history = useNavigate();
 
     useEffect(() => {
+        //Checks to see if this is creating or editing. If edit, the API is called.
+        if (groupId) {
         getGroupById(groupId)
             .then(data => setGroup({
                 id: data.id,
@@ -23,6 +25,7 @@ export const GroupForm = () => {
                 time: data.time,
                 spend: data.spend
             }))
+        }
     }, [])
 
     const handleInputChange = (e) => {

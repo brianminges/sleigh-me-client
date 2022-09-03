@@ -14,6 +14,7 @@ import { NavBar } from "./nav/NavBar"
 import { GroupForm } from "./groups/GroupForm"
 import { PrivateRoutes } from "./auth/PrivateRoutes"
 import { ProfileForm } from "./profiles/ProfileForm"
+import { GroupSearch } from "./groups/GroupSearch"
 
 export const SleighMe = () => {
   const [ token, setTokenState ] = useState(localStorage.getItem('token'));
@@ -40,9 +41,11 @@ export const SleighMe = () => {
           <Route exact path="/groups" element={<GroupsList/>} />
           <Route exact path="/groups/:groupId" element={<GroupDetail/>} />
           <Route exact path="/groups/:groupId/edit" element={<GroupForm/>} />
+          <Route exact path="/groups/:groupId/search" element={<GroupSearch/>} />
           <Route exact path="/groups/create" element={<GroupForm/>} />
+          
 
-          <Route exact path="/members" element={<MembersList />} />
+          <Route exact path="/members" element={<MembersList/>} />
           <Route exact path="/members/:userId" element={<MemberGroups/>} />
           <Route exact path="/members/:userId/profile" element={<MemberProfile/>} />
 

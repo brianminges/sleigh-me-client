@@ -1,0 +1,21 @@
+.search__results {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search__result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #164b5c;
+    padding-bottom: 10px;
+    overflow-y: auto;
+}
+
+.search__result__username {
+    font-size: .75rem;
+    color: darkgray;
+    text-align: left;
+}
