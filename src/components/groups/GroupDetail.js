@@ -88,7 +88,7 @@ export const GroupDetail = () => {
                 ? 
                 <div>
                     <button className="btn">Shuffle Santas</button>
-                    <button className="btn">Add user</button>
+                    <Link to={`/groups/${groupId}/search`}><button className="btn">Add user</button></Link>
                     <Link to={`/groups/${groupId}/edit`}><button className="btn">Edit</button></Link>
                 </div>
                 : 
