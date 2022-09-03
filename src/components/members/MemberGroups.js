@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getMemberById } from "./MemberManager";
+import { useParams, useNavigate } from "react-router-dom";
+import { getMemberById, leaveGroup } from "./MemberManager";
 import { MemberGroupCard } from "./MemberGroupCard";
 // import "./../groups/GroupCard.css"
 import "./MemberGroupCard.css"
@@ -10,17 +10,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const MemberGroups = () => {
     const [ member, setMember ] = useState([])
-    // const {userId} = useParams()
-
     const userId = localStorage.getItem("userId")
+    const history = useNavigate();
 
     useEffect(() => {
-        getMemberById(userId).then(data => setMember(data))
+        getMemberById(userId)
+            .then(data => setMember(data))
     }, [])
 
-    useEffect(() => {
-        console.log(member)
-    }, [member])
+    // useEffect(() => {
+    //     console.log(member)
+    // }, [member])
+
+//     const handleLeaveGroup = (groupId) => {
+//         leaveGroup(groupId)
+//            .then(getMemberById().then(data => setMember(data)))
+//    }
     
     if ((member.groups)?.length > 0) {
         return (
@@ -31,7 +36,8 @@ export const MemberGroups = () => {
             {(member.groups).map(group =>
                     <MemberGroupCard
                     key={group.id}
-                    group={group} 
+                    group={group}
+                    // handleLeaveGroup={handleLeaveGroup} 
                     />
             )}
             </article>
