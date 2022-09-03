@@ -38,6 +38,7 @@ export const SleighMe = () => {
 
         <Route element={<PrivateRoutes token={token}/>}>
           <Route exact path="/" element={<MemberGroups/>}/>
+          
           <Route exact path="/groups" element={<GroupsList/>} />
           <Route exact path="/groups/:groupId" element={<GroupDetail/>} />
           <Route exact path="/groups/:groupId/edit" element={<GroupForm/>} />

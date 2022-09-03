@@ -37,12 +37,11 @@ export const joinGroup = (newMember, groupId) => {
     }).then(res => res.json())
 }
 
-export const leaveGroup = (group) => {
-    return fetch(`${remoteURL}/groups/${group.id}/leave`, {
+export const leaveGroup = (groupId) => {
+    return fetch(`${remoteURL}/groups/${groupId}/leave`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(group)
+        } 
     })
 }
