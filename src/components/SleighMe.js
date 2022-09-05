@@ -15,6 +15,7 @@ import { GroupForm } from "./groups/GroupForm"
 import { PrivateRoutes } from "./auth/PrivateRoutes"
 import { ProfileForm } from "./profiles/ProfileForm"
 import { GroupSearch } from "./groups/GroupSearch"
+import { SetPartners } from "./groups/SetPartners"
 
 export const SleighMe = () => {
   const [ token, setTokenState ] = useState(localStorage.getItem('token'));
@@ -51,6 +52,8 @@ export const SleighMe = () => {
           <Route exact path="/members/:userId/profile" element={<MemberProfile/>} />
 
           <Route exact path="/profiles/:profileId/edit" element={<ProfileForm/>} />
+
+          <Route exact path="/groups/:groupId/partners" element={<SetPartners/>} />
         </Route>
       </Routes>
     </>
