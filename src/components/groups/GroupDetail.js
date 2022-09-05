@@ -1,20 +1,84 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getGroupById } from "./GroupManager"
+import { addPartners } from "../partners/PartnerManager";
 import "./GroupDetail.css"
 
 export const GroupDetail = () => {
     const [group, setGroup] = useState({});
     const {groupId} = useParams();
     const userId = parseInt(localStorage.getItem("userId"));
+    const [ santaBtn, setSantaBtn ] = useState(true);
+    // const [ group, setGroup ] = useState({});
+    // const {groupId} = useParams();
 
     useEffect(() => {
-        getGroupById(groupId).then(data => setGroup(data))
+        getGroupById(groupId)
+            .then(data => setGroup(data))
     }, [])
 
-    useEffect(() => {
-        console.log(group)
-    }, [group])
+    // This is invoked in shuffler(). It checks to make sure no index positions have the same values; if they don't, it stores the values in an object and pushes that object to finalPartners array. Once the length of finalPartners and arr1 are equal, each pairing is POSTED to the database. 
+    const compareArrays = (arr1, arr2) => {
+        let finalPartners = []
+        for (let i = 0; i < arr1.length; i++) {
+            if (arr1[i] === arr2[i]) {
+                window.alert('bad shuffle')
+                console.log('bad shuffle')
+                finalPartners = []
+                break
+            } else {
+                const partners = {
+                    group: parseInt(groupId),
+                    giver: arr1[i],
+                    receiver: arr2[i]
+                }
+                finalPartners.push(partners)
+                console.log(partners)
+            }
+
+        if (finalPartners.length === arr1.length) {
+            finalPartners.forEach(partner => (
+                addPartners(partner)
+            ))
+            window.alert('Get shopping!')
+            setSantaBtn(false)
+        }
+        }
+    }
+
+    const shuffler = () => {
+        if (group.members) {
+            const indexArray = [];
+            // Gets index values of each item in array and pushes to indexArray
+            for (let i = 0; i < (group.members).length; i++) {
+                let index = (group.members[i].id)
+                indexArray.push(index)
+                // console.log('indexArray', indexArray)
+            };
+
+            // Makes copy of indexArray and shuffles using Fisher-Yates algorithm
+            let newIndexArray = [...indexArray];
+            let i = newIndexArray.length;
+            while (--i > 0) {
+                let randomNumber = Math.floor(Math.random() * (i + 1));
+                [newIndexArray[randomNumber], newIndexArray[i]] = [newIndexArray[i], newIndexArray[randomNumber]];
+            }
+
+            // Checks to make sure no index positions have same values
+            // console.log('oldArray', indexArray);
+            // console.log('newArray', newIndexArray); 
+            compareArrays(indexArray, newIndexArray)
+
+        }
+    }
+
+    // useEffect(() => {
+    //     getGroupById(groupId).then(data => setGroup(data))
+    // }, [])
+
+    // useEffect(() => {
+    //     console.log(group)
+    // }, [group])
 
     //Changes from yyyy-MM-dd to "weekday, month, date"
     const changeDateFormat = (inputDate) => {
@@ -87,9 +151,46 @@ export const GroupDetail = () => {
             { group.creator.id === userId 
                 ? 
                 <div>
-                    <button className="btn">Shuffle Santas</button>
-                    <Link to={`/groups/${groupId}/search`}><button className="btn">Add user</button></Link>
-                    <Link to={`/groups/${groupId}/edit`}><button className="btn">Edit</button></Link>
+                    { santaBtn
+                    ?
+                    <button 
+                        onClick={() => shuffler()}
+                        className="btn">
+                        Shuffle Santas
+                    </button>
+                    :
+                    null
+                    }
+                    { santaBtn
+                    ?
+                    <Link to={`/groups/${groupId}/search`}>
+                        <button 
+                            className="btn">
+                            Add user
+                        </button>
+                    </Link>
+                    :
+                    null
+                    }
+                    { santaBtn
+                    ?
+                    <Link to={`/groups/${groupId}/edit`}>
+                        <button 
+                            className="btn">
+                            Edit
+                        </button>
+                    </Link>
+                    :
+                    null
+                    }
+                    
+                    {/* <button 
+                        onClick={() => shuffler()}
+                        className="btn">
+                        Shuffle Santas
+                    </button> */}
+                    {/* <Link to={`/groups/${groupId}/search`}><button className="btn">Add user</button></Link> */}
+                    {/* <Link to={`/groups/${groupId}/edit`}><button className="btn">Edit</button></Link> */}
                 </div>
                 : 
                 null
