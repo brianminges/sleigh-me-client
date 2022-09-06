@@ -146,7 +146,7 @@ export const GroupForm = () => {
                                     </div>
                                 </div>
                             </fieldset>
-                            <h3>When will you draw names?</h3>
+                            <h3>When are gifts due?</h3>
                             <fieldset>
                                 <div className="form__fieldset__item form__input">
                                     <div className="form__fieldset__group">

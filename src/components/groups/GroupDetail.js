@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getGroupById } from "./GroupManager"
-import { addPartners, getPartner } from "../partners/PartnerManager";
+import { addPartners } from "../partners/PartnerManager";
 import "./GroupDetail.css"
 
 export const GroupDetail = () => {
@@ -16,13 +16,19 @@ export const GroupDetail = () => {
             .then(data => setGroup(data))
     }, [])
 
+    // sets 'partner' variable from nested 'group' array. Solves asynchronous JavaScript issue. 
     useEffect(() => {
-        getPartner(groupId).then(data => setPartner(data))
-    }, [])
-
-    useEffect(() => {
-        console.log('partner', partner)
-    }, [partner])
+        if ((group.partners)?.length > 1)
+        (group.partners).forEach(partner => {
+            if (partner.giver.user.id === userId) {
+                setPartner({
+                    id: partner.receiver.id,
+                    firstName: partner.receiver.user.first_name,
+                    lastName: partner.receiver.user.last_name
+                })
+            }
+        })
+    }, [group.partners])
 
     // This is invoked in shuffler(). It checks to make sure no index positions have the same values; if they don't, it stores the values in an object and pushes that object to finalPartners array. Once the length of finalPartners and arr1 are equal, each pairing is POSTED to the database. 
     const compareArrays = (arr1, arr2) => {
@@ -30,7 +36,6 @@ export const GroupDetail = () => {
         for (let i = 0; i < arr1.length; i++) {
             if (arr1[i] === arr2[i]) {
                 window.alert('bad shuffle')
-                console.log('bad shuffle')
                 finalPartners = []
                 break
             } else {
@@ -40,7 +45,6 @@ export const GroupDetail = () => {
                     receiver: arr2[i]
                 }
                 finalPartners.push(partners)
-                console.log(partners)
             }
 
         if (finalPartners.length === arr1.length) {
@@ -49,6 +53,7 @@ export const GroupDetail = () => {
             ))
             window.alert('Get shopping!')
             setSantaBtn(false)
+            window.location.reload()
         }
         }
     }
@@ -128,11 +133,11 @@ export const GroupDetail = () => {
             <article className="group__detail">
             <h2>{group.name}</h2>
             <div className="group__detail__infobox">
-                { (partner.receiver)
+                { (group.partners[0]?.receiver)
                 ?
                 <div className="group__detail__pairing__infobox">
                 <h3>HO HO HO!</h3>
-                <p><strong>You've been assigned <Link to={`/members/${partner.receiver.id}/profile`}> {partner.receiver.user.first_name} {partner.receiver.user.last_name}</Link>! Check out {partner.receiver.user.first_name}'s profile and get shopping!</strong></p>
+                <p>You've been assigned <strong><Link to={`/members/${partner.id}/profile`}>{partner.firstName} {partner.lastName}</Link></strong>. Check out {partner.firstName}'s profile and get shopping!</p> 
                 </div>
                 :
                 null
@@ -145,61 +150,44 @@ export const GroupDetail = () => {
  
             <div className="group__detail__members">
                 <h3>Group members</h3>
-            {   group.members 
+                { (group.members) 
                 ? 
                 group.members?.map(member => (
                 <p key={member.user.id}><Link to={`/members/${member.user.id}/profile`} >{member.user.first_name} {member.user.last_name}</Link></p>))
                 :
                 <p>No members.</p>
-            }
+                }
             </div>
-            { group.creator.id === userId && (!partner.receiver?.id)
+            <div>
+                { group.creator.id === userId && (!partner.id) 
                 ? 
-                <div>
-                    { santaBtn
+                    { santaBtn }
                     ?
-                    <button 
-                        onClick={() => shuffler()}
-                        className="btn">
-                        Shuffle Santas
-                    </button>
-                    :
-                    <p>Your Santas have been shuffled</p>
-                    }
-                    { santaBtn
-                    ?
-                    <Link to={`/groups/${groupId}/search`}>
+                    <div>
                         <button 
+                            onClick={() => shuffler()}
                             className="btn">
-                            Add user
+                            Shuffle Santas
                         </button>
-                    </Link>
+                        <Link to={`/groups/${groupId}/search`}>
+                            <button 
+                                className="btn">
+                                Add user
+                            </button>
+                        </Link>
+                        <Link to={`/groups/${groupId}/edit`}>
+                            <button 
+                                className="btn">
+                                Edit
+                            </button>
+                        </Link>
+                    </div>
                     :
                     null
-                    }
-                    { santaBtn
-                    ?
-                    <Link to={`/groups/${groupId}/edit`}>
-                        <button 
-                            className="btn">
-                            Edit
-                        </button>
-                    </Link>
-                    :
-                    null
-                    }
-                    
-                    {/* <button 
-                        onClick={() => shuffler()}
-                        className="btn">
-                        Shuffle Santas
-                    </button> */}
-                    {/* <Link to={`/groups/${groupId}/search`}><button className="btn">Add user</button></Link> */}
-                    {/* <Link to={`/groups/${groupId}/edit`}><button className="btn">Edit</button></Link> */}
-                </div>
-                : 
+                :
                 null
             }
+            </div>
             </article> 
             </>
         )
