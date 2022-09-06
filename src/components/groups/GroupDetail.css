@@ -5,7 +5,9 @@
 } */
 
 .group__detail__infobox {
-    background-color: #259aa6;
+    /* background-color: #259aa6; */
+    background-color: #164b5c;
+    color: white;
     box-shadow: 2px 3px 6px gray;
     border-radius: 4px;
     padding: 10px;
@@ -15,10 +17,19 @@
     margin-right: auto;
 }
 
+.group__detail__pairing__infobox {
+    background-color: white;
+    box-shadow: 2px 3px 6px black;
+    color: black;
+    border-radius: 4px;
+    margin: 10px;
+    padding: 10px;
+}
 
 .group__detail__infobox p {
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
     text-align: left;
+    margin: 10px;
 }
 
 .group__detail__members p {

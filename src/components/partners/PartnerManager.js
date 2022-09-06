@@ -10,3 +10,12 @@ export const addPartners = (partners) => {
         body: JSON. stringify(partners)
     }).then(res => res.json())
 }
+
+export const getPartner = (groupId) => {
+    return fetch(`${remoteURL}/groups/${groupId}/partner_alert`, {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        }
+    })
+    .then(res => res.json())
+}

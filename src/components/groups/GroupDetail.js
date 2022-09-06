@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getGroupById } from "./GroupManager"
-import { addPartners } from "../partners/PartnerManager";
+import { addPartners, getPartner } from "../partners/PartnerManager";
 import "./GroupDetail.css"
 
 export const GroupDetail = () => {
@@ -9,13 +9,20 @@ export const GroupDetail = () => {
     const {groupId} = useParams();
     const userId = parseInt(localStorage.getItem("userId"));
     const [ santaBtn, setSantaBtn ] = useState(true);
-    // const [ group, setGroup ] = useState({});
-    // const {groupId} = useParams();
+    const [ partner, setPartner ] = useState({})
 
     useEffect(() => {
         getGroupById(groupId)
             .then(data => setGroup(data))
     }, [])
+
+    useEffect(() => {
+        getPartner(groupId).then(data => setPartner(data))
+    }, [])
+
+    useEffect(() => {
+        console.log('partner', partner)
+    }, [partner])
 
     // This is invoked in shuffler(). It checks to make sure no index positions have the same values; if they don't, it stores the values in an object and pushes that object to finalPartners array. Once the length of finalPartners and arr1 are equal, each pairing is POSTED to the database. 
     const compareArrays = (arr1, arr2) => {
@@ -53,7 +60,6 @@ export const GroupDetail = () => {
             for (let i = 0; i < (group.members).length; i++) {
                 let index = (group.members[i].id)
                 indexArray.push(index)
-                // console.log('indexArray', indexArray)
             };
 
             // Makes copy of indexArray and shuffles using Fisher-Yates algorithm
@@ -65,20 +71,9 @@ export const GroupDetail = () => {
             }
 
             // Checks to make sure no index positions have same values
-            // console.log('oldArray', indexArray);
-            // console.log('newArray', newIndexArray); 
             compareArrays(indexArray, newIndexArray)
-
         }
     }
-
-    // useEffect(() => {
-    //     getGroupById(groupId).then(data => setGroup(data))
-    // }, [])
-
-    // useEffect(() => {
-    //     console.log(group)
-    // }, [group])
 
     //Changes from yyyy-MM-dd to "weekday, month, date"
     const changeDateFormat = (inputDate) => {
@@ -133,11 +128,21 @@ export const GroupDetail = () => {
             <article className="group__detail">
             <h2>{group.name}</h2>
             <div className="group__detail__infobox">
+                { (partner.receiver)
+                ?
+                <div className="group__detail__pairing__infobox">
+                <h3>HO HO HO!</h3>
+                <p><strong>You've been assigned <Link to={`/members/${partner.receiver.id}/profile`}> {partner.receiver.user.first_name} {partner.receiver.user.last_name}</Link>! Check out {partner.receiver.user.first_name}'s profile and get shopping!</strong></p>
+                </div>
+                :
+                null
+                }
                 <h3>Important details</h3>
                 <p><strong>Guidelines:</strong> {group.guidelines}</p>
                 <p><strong>Deliver by:</strong> {changeTimeFormat(group.time)}{changeDateFormat(group.date)} </p>
                 <p><strong>Spending limit:</strong> ${group.spend}</p>
             </div>
+ 
             <div className="group__detail__members">
                 <h3>Group members</h3>
             {   group.members 
@@ -148,7 +153,7 @@ export const GroupDetail = () => {
                 <p>No members.</p>
             }
             </div>
-            { group.creator.id === userId 
+            { group.creator.id === userId && (!partner.receiver?.id)
                 ? 
                 <div>
                     { santaBtn
@@ -159,7 +164,7 @@ export const GroupDetail = () => {
                         Shuffle Santas
                     </button>
                     :
-                    null
+                    <p>Your Santas have been shuffled</p>
                     }
                     { santaBtn
                     ?

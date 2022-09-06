@@ -20,6 +20,7 @@ export const MemberGroups = () => {
     const handleLeaveGroup = (groupId) => {
         leaveGroup(groupId)
            .then(() => history(`/members/${member.id}`))
+           .then(() => window.location.reload())
    }
 
     // useEffect(() => {
