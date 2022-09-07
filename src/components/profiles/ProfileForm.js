@@ -26,10 +26,10 @@ export const ProfileForm = () => {
                 id: data.id,
                 likes: data.likes,
                 dislikes: data.dislikes,
-                giftPreference: data.gift_preference.id,
+                giftPreference: data.gift_preference?.id,
                 street: data.street,
                 city: data.city,
-                state: data.state.id,
+                state: data.state?.id,
                 zip: data.zip
             }))     
     }, []);
@@ -44,9 +44,9 @@ export const ProfileForm = () => {
             .then(data => setStates(data))
     }, [])
 
-    useEffect(() => {
-        console.log(profile.giftPreference)
-    }, [profile.giftPreference]);
+    // useEffect(() => {
+    //     console.log(profile.giftPreference)
+    // }, [profile.giftPreference]);
 
     const handleInputChange = (e) => {
         const newProfile = {...profile}
@@ -132,7 +132,7 @@ export const ProfileForm = () => {
                                 <div className="form__fieldset__item form__input">
                                     <div className="form__fieldset__group">
                                         <div className="form__fieldset__label">
-                                            <label>Gift preference</label>
+                                            <label>Gift preference (required)</label>
                                         </div>
                                         <div>
                                             <select 
@@ -209,7 +209,7 @@ export const ProfileForm = () => {
                                 <div className="form__fieldset__item form__input">
                                     <div className="form__fieldset__group">
                                         <div className="form__fieldset__label">
-                                            <label>State</label>
+                                            <label>State (required)</label>
                                         </div>
                                         <div>
                                             <select 
