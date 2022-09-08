@@ -1,8 +1,6 @@
-/* .group__detail {
-    width: 75%;
-    margin-left: auto;
-    margin-right: auto;
-} */
+.group__detail {
+    height: 827px;
+}
 
 .group__detail__infobox {
     /* background-color: #259aa6; */
@@ -27,11 +25,37 @@
 }
 
 .group__detail__infobox p {
-    /* margin-bottom: 5px; */
     text-align: left;
     margin: 10px;
 }
 
+.group__detail__members {
+    height: 362px;
+    z-index: 0;
+    overflow-y: auto;
+    position: relative;
+}
+
 .group__detail__members p {
     margin-bottom: 5px;
+}
+ 
+.navbar__without__assignments {
+    position: absolute;
+    z-index: 10;
+    width: 410px;
+    right: 0;
+    top: 849px;
+}
+
+.navbar__with__assignments {
+    position: absolute;
+    z-index: 10;
+    width: 410px;
+    right: 0;
+    top: 849px;
+}
+
+.group__buttons {
+    margin-top: 20px;
 }

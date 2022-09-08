@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { leaveGroup } from "../members/MemberManager";
 
 export const MemberGroupCard = ( { group, handleLeaveGroup }) => {
-    console.log(group)
+    // console.log(group)
     const history = useNavigate();
     const userId = localStorage.getItem("userId")
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getMemberById } from "./MemberManager";
 import { getMemberPartners } from "../partners/PartnerManager";
+import { NavBar } from "../nav/NavBar";
 import "./MemberProfile.css"
 
 
@@ -84,7 +85,7 @@ export const MemberProfile = () => {
             { memberProfile.id === parseInt(currentUser)   
                 ?
                 <div className="member__profile__address">
-                    <p><em>Your address is visible only to you and your Secret Santa shopper.</em></p>
+                    <p><em>Only you and your Secret Santa see this.</em></p>
                     <p><strong>Address:</strong> </p>
                     <p>{memberProfile.profile?.street}</p>
                     <p>{memberProfile.profile?.city}, {memberProfile.profile?.state?.abbreviation} {memberProfile.profile?.zip}</p>
@@ -96,7 +97,7 @@ export const MemberProfile = () => {
             { addressView
                 ?
                 <div className="member__profile__address">
-                    <p><em>This address is visible only to {memberProfile.user?.first_name} and paired Secret Santa shoppers.</em></p>
+                    <p><em>This is visible only to {memberProfile.user?.first_name}'s Secret Santa.</em></p>
                     <p><strong>Address:</strong> </p>
                     <p>{memberProfile.profile?.street}</p>
                     <p>{memberProfile.profile?.city}, {memberProfile.profile?.state?.abbreviation} {memberProfile.profile?.zip}</p>
@@ -109,13 +110,21 @@ export const MemberProfile = () => {
             { memberProfile.id === parseInt(currentUser) 
                 ?
                 <div>
-                    <Link to={`/profiles/${userId}/edit`}><button className="btn member__profile__button">Edit</button></Link> 
+                    <Link to={`/profiles/${userId}/edit`}>
+                        <button 
+                            className="btn member__profile__button">
+                            Edit
+                        </button>
+                    </Link> 
                 </div>
                 :
                 null
             }
         </div>
         </article>
+        <section className="navbar">
+            <NavBar /> 
+        </section>
         </>
         )
     }

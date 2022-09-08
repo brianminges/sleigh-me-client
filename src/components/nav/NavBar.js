@@ -23,36 +23,36 @@ export const NavBar = () => {
         <div className="navbar__items">
             
             <div className="navbar__item">
-                <a href="#">
-                <div>
-                    <Link to="/"> <FontAwesomeIcon icon={faHouse} /> </Link>
-                </div>
-                <div>
-                    <p className="navbar__label">My Groups</p>
-                </div>
-                </a>
+                <Link to="/"> 
+                    <div>
+                        <FontAwesomeIcon icon={faHouse} /> 
+                    </div>
+                    <div>
+                        <p className="navbar__label">My Groups</p>
+                    </div>
+                </Link>
             </div>
             
             <div className="navbar__item">
-                <a href="#">
-                <div>
-                    <Link to="/groups/create"> <FontAwesomeIcon icon={faCirclePlus} /> </Link>
-                </div>
-                <div>
-                    <p className="navbar__label">Create</p>
-                </div>
-                </a>
+                <Link to="/groups/create">
+                    <div>
+                        <FontAwesomeIcon icon={faCirclePlus} /> 
+                    </div>
+                    <div>
+                        <p className="navbar__label">Create</p>
+                    </div>
+                </Link>
             </div>
 
             <div className="navbar__item">
-                <a href="#">
-                <div>
-                    <Link to={`/members/${userId}/profile`}> <FontAwesomeIcon icon={faUser} /> </Link> 
-                </div>
-                <div>
-                    <p className="navbar__label">Profile</p>
-                </div>
-                </a>
+                <Link to={`/members/${userId}/profile`}>
+                    <div>
+                        <FontAwesomeIcon icon={faUser} />  
+                    </div>
+                    <div > 
+                        <p className="navbar__label">Profile</p>
+                    </div>
+                </Link>
             </div>
 
             <div className="navbar__item" id="navbar__item__right">

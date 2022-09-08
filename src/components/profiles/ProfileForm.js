@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProfileById, updateProfile } from "./ProfileManager";
 import { getAllGiftPreferences } from "../gift_preference/GiftPreferenceManager";
-import "./ProfileForm.css"
 import { getAllStates } from "../states/StateManager";
+import { NavBar } from "../nav/NavBar";
+import "./ProfileForm.css"
 
 export const ProfileForm = () => {
     const [ profile, setProfile ] = useState({
@@ -44,10 +45,6 @@ export const ProfileForm = () => {
             .then(data => setStates(data))
     }, [])
 
-    // useEffect(() => {
-    //     console.log(profile.giftPreference)
-    // }, [profile.giftPreference]);
-
     const handleInputChange = (e) => {
         const newProfile = {...profile}
         let selectedVal = e.target.value
@@ -60,7 +57,6 @@ export const ProfileForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
         const editedProfile = {
             id: profile.id,
             likes: profile.likes,
@@ -71,7 +67,7 @@ export const ProfileForm = () => {
             state: parseInt(profile.state),
             zip: profile.zip
         }
-        console.log(editedProfile)
+        // console.log(editedProfile)
         updateProfile(editedProfile)
             .then(() => history(-1))
     }
@@ -141,8 +137,6 @@ export const ProfileForm = () => {
                                                 onChange={handleInputChange}
                                                 value={profile.giftPreference}>
                                                 <option 
-                                                    // name="giftPreference"
-                                                    // id="giftPreference"
                                                     className="form__fieldset__option" 
                                                     value="0">
                                                     Please select ... 
@@ -162,7 +156,7 @@ export const ProfileForm = () => {
                             </fieldset>
 
                             <h3 className="form__address__header">Address</h3>
-                            <p className="form__address__notice"><em>Your address is visible only to you.</em></p>
+                            <p className="form__address__notice"><em>Only you and your Secret Santa see this.</em></p>
                             <fieldset>
                                 <div className="form__fieldset__item form__input">
                                     <div className="form__fieldset__group">
@@ -218,8 +212,6 @@ export const ProfileForm = () => {
                                                 onChange={handleInputChange}
                                                 value={profile.state}>
                                                 <option 
-                                                    // name="states"
-                                                    // id="states"
                                                     className="form__fieldset__option" 
                                                     value="0"> 
                                                     Please select ... 
@@ -271,6 +263,9 @@ export const ProfileForm = () => {
                         </button>
                     </fieldset>
                 </div>
+            </section>
+            <section className="navbar">
+                <NavBar /> 
             </section>
         </main>
         </>
