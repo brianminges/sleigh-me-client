@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getGroupById } from "./GroupManager"
 import { addPartners } from "../partners/PartnerManager";
+import { NavBar } from "./../nav/NavBar"
 import "./GroupDetail.css"
 
 export const GroupDetail = () => {
@@ -132,63 +133,88 @@ export const GroupDetail = () => {
             <>
             <article className="group__detail">
             <h2>{group.name}</h2>
-            <div className="group__detail__infobox">
-                { (group.partners[0]?.receiver)
-                ?
-                <div className="group__detail__pairing__infobox">
-                <h3>HO HO HO!</h3>
-                <p>You've been assigned <strong><Link to={`/members/${partner.id}/profile`}>{partner.firstName} {partner.lastName}</Link></strong>. Check out {partner.firstName}'s profile and get shopping!</p> 
-                </div>
-                :
-                null
-                }
-                <h3>Important details</h3>
-                <p><strong>Guidelines:</strong> {group.guidelines}</p>
-                <p><strong>Deliver by:</strong> {changeTimeFormat(group.time)}{changeDateFormat(group.date)} </p>
-                <p><strong>Spending limit:</strong> ${group.spend}</p>
-            </div>
- 
-            <div className="group__detail__members">
-                <h3>Group members</h3>
-                { (group.members) 
-                ? 
-                group.members?.map(member => (
-                <p key={member.user.id}><Link to={`/members/${member.user.id}/profile`} >{member.user.first_name} {member.user.last_name}</Link></p>))
-                :
-                <p>No members.</p>
-                }
-            </div>
-            <div>
-                { group.creator.id === userId && (!partner.id) 
-                ? 
-                    { santaBtn }
-                    ?
-                    <div>
-                        <button 
-                            onClick={() => shuffler()}
-                            className="btn">
-                            Shuffle Santas
-                        </button>
-                        <Link to={`/groups/${groupId}/search`}>
-                            <button 
-                                className="btn">
-                                Add user
-                            </button>
-                        </Link>
-                        <Link to={`/groups/${groupId}/edit`}>
-                            <button 
-                                className="btn">
-                                Edit
-                            </button>
-                        </Link>
+                <section>
+                    <div className="group__detail__infobox">
+                        { (group.partners[0]?.receiver)
+                        ?
+                        <div className="group__detail__pairing__infobox">
+                        <h3>HO HO HO!</h3>
+                        <p>You've been assigned <strong><Link to={`/members/${partner.id}/profile`}>{partner.firstName} {partner.lastName}</Link></strong>. Check out {partner.firstName}'s profile and get shopping!</p> 
+                        </div>
+                        :
+                        null
+                        }
+                        <h3>Important details</h3>
+                        <p><strong>Guidelines:</strong> {group.guidelines}</p>
+                        <p><strong>Deliver by:</strong> {changeTimeFormat(group.time)}{changeDateFormat(group.date)} </p>
+                        <p><strong>Spending limit:</strong> ${group.spend}</p>
                     </div>
+                </section>
+
+                <section>
+                    <div className="group__detail__members">
+                        <h3>Group members</h3>
+                        { (group.members) 
+                        ? 
+                        group.members?.map(member => (
+                        <p key={member.user.id}><Link to={`/members/${member.user.id}/profile`} >{member.user.first_name} {member.user.last_name}</Link></p>))
+                        
+                        :
+                        <p>No members.</p>
+                        }
+                    </div>
+                </section>
+
+                <section>
+                    <div>
+                        { group.creator.id === userId && (!partner.id) 
+                        ? 
+                            { santaBtn }
+                            ?
+                            <div>
+                                <article className="group__buttons">
+                                    <button 
+                                        onClick={() => shuffler()}
+                                        className="btn">
+                                        Shuffle Santas
+                                    </button>
+                                    <Link to={`/groups/${groupId}/search`}>
+                                        <button 
+                                            className="btn">
+                                            Add user
+                                        </button>
+                                    </Link>
+                                    <Link to={`/groups/${groupId}/edit`}>
+                                        <button 
+                                            className="btn">
+                                            Edit
+                                        </button>
+                                    </Link>
+                                </article>
+                                <article className="navbar__without__assignments">
+                                    <NavBar />
+                                </article>
+                            </div>
+                            :
+                            null
+                        :
+                        null
+                        }
+
+                    </div>
+                </section>
+
+                <section>
+                { (group.partners[0]?.receiver)
+                    ?
+                    <article className="navbar__with__assignments">
+                        <NavBar />
+                    </article>
                     :
                     null
-                :
-                null
-            }
-            </div>
-            </article> 
+                }
+                </section>
+            </article>
             </>
         )
     }

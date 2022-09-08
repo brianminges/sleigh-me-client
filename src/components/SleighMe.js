@@ -37,6 +37,7 @@ export const SleighMe = () => {
 
         <Route exact path="/register" element={<Register token={token} setToken={setToken} />} />  
 
+
         <Route element={<PrivateRoutes token={token}/>}>
           <Route exact path="/" element={<MemberGroups/>}/>
           

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import { searchMembers } from "./../members/MemberManager"
 import { MemberSearchResultCard } from "../members/MemberSearchResultCard"
+import { NavBar } from "./../nav/NavBar"
 import "./../SleighMe.css"
 import "./GroupSearch.css"
 
@@ -86,6 +87,9 @@ export const GroupSearch = () => {
                 </div>
             }
             </section>
+            <article className="navbar__without__assignments">
+                <NavBar />
+            </article>
         </main>
         </>
     )

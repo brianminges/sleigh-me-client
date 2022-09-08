@@ -4,13 +4,18 @@ import { addGroup, getGroupById, updateGroup } from "./GroupManager";
 import { NavBar } from "./../nav/NavBar"
 import "./GroupForm.css"
 import "./../SleighMe.css"
-import { joinGroup } from "../members/MemberManager";
-import { parse } from "@fortawesome/fontawesome-svg-core";
-
  
 
 export const GroupForm = () => {
-    const [group, setGroup] = useState({});
+    const [group, setGroup] = useState({
+        id: 0,
+        name: "",
+        creator: 0,
+        guidelines: "",
+        date: "",
+        time: "",
+        spend: 0
+    });
     const {groupId} = useParams();
     const history = useNavigate();
     const currentUser = localStorage.getItem("userId")
@@ -41,10 +46,6 @@ export const GroupForm = () => {
         setGroup(newGroup)
     }
 
-    useEffect(() => {
-        console.log(group)
-    }, [group])
-
     const handleSubmit = (e) => {
         e.preventDefault()
         if (groupId) {
@@ -60,13 +61,8 @@ export const GroupForm = () => {
             updateGroup(editedGroup)
                 .then(() => history(`/groups/${groupId}`))
         } else {
-
-            // const newMember = {
-            //     member: parseInt(currentUser),
-            //     group: group.id
-            // }
             addGroup(group)
-                    .then(() => history("/"))
+                .then(() => history("/"))
         }
     }
 
@@ -185,15 +181,6 @@ export const GroupForm = () => {
                                 </div>
                             </fieldset>
 
-                            {/* <fieldset>
-                                <button 
-                                    className="btn" 
-                                    type="submit"
-                                    onClick={handleSubmit}>
-                                    Submit
-                                </button>
-                            </fieldset> */}
-
                         </div>
                     </div>
                 </form>
@@ -209,7 +196,7 @@ export const GroupForm = () => {
                 </div>
             </section>
             <section className="navbar">
-            <NavBar></NavBar>
+                <NavBar /> 
             </section>
         </main>
         </>

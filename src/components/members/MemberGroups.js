@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getMemberById, leaveGroup } from "./MemberManager";
 import { MemberGroupCard } from "./MemberGroupCard";
 import { NavBar } from "../nav/NavBar";
-// import "./../groups/GroupCard.css"
 import "./MemberGroupCard.css"
 import "./../SleighMe.css"
  
@@ -23,28 +22,26 @@ export const MemberGroups = () => {
            .then(() => window.location.reload())
    }
 
-    // useEffect(() => {
-    //     console.log(member)
-    // }, [member])
-
-    
+   
     if ((member.groups)?.length > 0) {
         return (
             <>
             <article className="groups__list__message">
-            <h2>My Groups</h2>
-            <p>Welcome, {member.user?.first_name}</p>
+                <h2>My Groups</h2>
+                <p>Welcome, {member.user?.first_name}</p>
             </article>
             <article className="groups__list__body">
-            {(member.groups).map(group =>
-                    <MemberGroupCard
-                    key={group.id}
-                    group={group}
-                    handleLeaveGroup={handleLeaveGroup} 
-                    />
-            )}
+                {(member.groups).map(group =>
+                        <MemberGroupCard
+                        key={group.id}
+                        group={group}
+                        handleLeaveGroup={handleLeaveGroup} 
+                        />
+                )}
             </article>
-            <NavBar /> 
+            <article className="navbar__bottom__layout__with">
+                <NavBar /> 
+            </article>
             </>
         )
     } 
@@ -52,10 +49,12 @@ export const MemberGroups = () => {
         return (
             <>
             <article className="groups__list__message">
-            <h2>My Groups</h2>
-            <p className="">You are not in any groups.</p>
+                <h2>My Groups</h2>
+                <p className="">You are not in any groups.</p>
             </article>
-            <NavBar /> 
+            <article className="navbar__bottom__layout__without">
+                <NavBar /> 
+            </article>
             </>
         )
     }
