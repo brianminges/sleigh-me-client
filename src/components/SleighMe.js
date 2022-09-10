@@ -54,7 +54,7 @@ export const SleighMe = () => {
 
           <Route exact path="/profiles/:profileId/edit" element={<ProfileForm/>} />
 
-          <Route exact path="/groups/:groupId/partners" element={<SetPartners/>} />
+          {/* <Route exact path="/groups/:groupId/partners" element={<SetPartners/>} /> */}
         </Route>
       </Routes>
     </>

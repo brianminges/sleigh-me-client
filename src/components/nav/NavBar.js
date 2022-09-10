@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faCirclePlus, faUser, faRightFromBracket, faWindowMinimize } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faCirclePlus, faUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import "./../SleighMe.css"
 import "./NavBar.css"
 
