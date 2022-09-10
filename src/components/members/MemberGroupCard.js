@@ -1,20 +1,15 @@
 import React from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { leaveGroup } from "../members/MemberManager";
+import { Link, useNavigate } from "react-router-dom";
+// import { leaveGroup } from "../members/MemberManager";
 
-export const MemberGroupCard = ( { group, handleLeaveGroup }) => {
-    // console.log(group)
-    const history = useNavigate();
+export const MemberGroupCard = ( { group, handleLeaveGroup, handleDeleteGroup }) => {
+    // const history = useNavigate();
     const userId = localStorage.getItem("userId")
 
-    
-
-
+    // Checks to see if current user created the group. If so, user gets first 'return' statement. If not, gets second. 
     if (group?.creator.user.id === parseInt(userId)) {
-    // if (group?.creator.user.id === parseInt(userId)) {
         return (
             <>
-            {/* <a href={`/groups/${group.id}`}> */}
             <section className="group__card">
                 <div><h3 className="group__card__name"><Link to={`/groups/${group.id}`}>{group?.name}</Link></h3></div>
                     <div className="group__card__elements">
@@ -27,12 +22,11 @@ export const MemberGroupCard = ( { group, handleLeaveGroup }) => {
                         </Link>
                         <button  
                             className="group__card__element btn__mini btn__mini__leave"
-                            onClick={() => handleLeaveGroup(group.id)}>
-                            Leave
+                            onClick={() => handleDeleteGroup(group.id)} >
+                            Delete
                         </button>
                     </div>
             </section>
-            {/* </a> */}
             </>
         )
     } else {

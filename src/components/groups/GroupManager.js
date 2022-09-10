@@ -41,4 +41,16 @@ export const updateGroup = (group) => {
     })
 }
 
+export const deleteGroup = (groupId) => {
+    return fetch(`${remoteURL}/groups/${groupId}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify(groupId)
+    })
+}
+
+
+
 
