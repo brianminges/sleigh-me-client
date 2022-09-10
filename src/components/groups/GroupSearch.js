@@ -1,19 +1,18 @@
 import React, {useEffect, useState} from "react"
+import { useParams } from "react-router-dom"
 import { searchMembers } from "./../members/MemberManager"
+import { getGroupById } from "./GroupManager"
 import { MemberSearchResultCard } from "../members/MemberSearchResultCard"
 import { NavBar } from "./../nav/NavBar"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import "./../SleighMe.css"
 import "./GroupSearch.css"
 
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
-  
-
 export const GroupSearch = () => {
     const [ searchValue, setSearchValue ] = useState("")
     const [ members, setMembers ] = useState([]);
-    const [ reset, setReset ] = useState(false)
 
     const handleInputChange = (e) => {
         const value = e.target.value
@@ -22,18 +21,10 @@ export const GroupSearch = () => {
         }
     }
 
-    useEffect(() => {
-        console.log(members)
-    }, [members])
-
     const handleSearch = (searchValue) => {
         searchMembers(searchValue)
             .then(data => {setMembers(data)})
     }
-
-    useEffect(() => {
-        console.log(members)
-    }, [members])
 
     return (
         <>
@@ -47,7 +38,7 @@ export const GroupSearch = () => {
                                 <div className="form__fieldset__item form__input">
                                     <div className="form__fieldset__group">
                                         <div className="form__fieldset__label">
-                                            {/* <label>Name</label> */}
+                                            {/* <label>Search</label> */}
                                         </div>
                                         <div className="search__form__input__block">
                                         <input
@@ -56,7 +47,7 @@ export const GroupSearch = () => {
                                             className="search__form__input__field"
                                             placeholder="Search by name"
                                             onChange={handleInputChange}
-                                            autocomplete="off" />
+                                            autoComplete="off" />
                                         <button 
                                             type="button"
                                             className="search__form__input__btn"
@@ -83,7 +74,7 @@ export const GroupSearch = () => {
                 </div>
                 : 
                 <div>
-                    No results
+                    Your results will be displayed here.
                 </div>
             }
             </section>

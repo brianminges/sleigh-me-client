@@ -88,7 +88,7 @@ export const MemberProfile = () => {
                     <p><em>Only you and your Secret Santa see this.</em></p>
                     <p><strong>Address:</strong> </p>
                     <p>{memberProfile.profile?.street}</p>
-                    <p>{memberProfile.profile?.city}, {memberProfile.profile?.state?.abbreviation} {memberProfile.profile?.zip}</p>
+                    <p>{memberProfile.profile?.city} {memberProfile.profile?.state?.abbreviation} {memberProfile.profile?.zip}</p>
                 </div>
                 :
                 null
@@ -100,7 +100,7 @@ export const MemberProfile = () => {
                     <p><em>This is visible only to {memberProfile.user?.first_name}'s Secret Santa.</em></p>
                     <p><strong>Address:</strong> </p>
                     <p>{memberProfile.profile?.street}</p>
-                    <p>{memberProfile.profile?.city}, {memberProfile.profile?.state?.abbreviation} {memberProfile.profile?.zip}</p>
+                    <p>{memberProfile.profile?.city} {memberProfile.profile?.state?.abbreviation} {memberProfile.profile?.zip}</p>
                 </div>
                 :
                 null

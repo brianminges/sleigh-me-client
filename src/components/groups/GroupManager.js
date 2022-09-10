@@ -26,7 +26,8 @@ export const addGroup = (newGroup) => {
             "Content-Type": "application/json"
         },
         body: JSON. stringify(newGroup)
-    }).then(res => res.json())
+    })
+    .then(res => res.json())
 }
 
 export const updateGroup = (group) => { 

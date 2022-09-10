@@ -1,28 +1,39 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { getGroupById } from "../groups/GroupManager";
 import { joinGroup } from "./MemberManager"
 import "../members/MemberSearchResultCard.css"
 
 export const MemberSearchResultCard = ({ member }) => {
-
+    const [group, setGroup] = useState({});
     const {groupId} = useParams();
     const history = useNavigate();
 
-    
+    useEffect(() => {
+        getGroupById(groupId)
+            .then(data => setGroup(data))
+    }, []);
 
     const handleAddToGroup = () => {
-        const newMember = {
-            group: parseInt(groupId),
-            member: member.member.id
-        }
 
-        joinGroup(newMember, groupId)
-            .then(() => history(`/groups/${parseInt(groupId)}`))
+        //Checks to see if a selected user is already in group
+        if (group.members) {
+            (group.members).forEach(m => {
+                if (member.id === m.id) {
+                    window.alert('User already in group')
+                } else {
+                    const newMember = {
+                        group: parseInt(groupId),
+                        member: member.member.id
+                    }
+            
+                    joinGroup(newMember, groupId)
+                        .then(() => history(`/groups/${parseInt(groupId)}`))
+                }
+            }) 
+        }
     }
  
-
-
     return (
         <>
         <div className="search__result">
@@ -40,6 +51,4 @@ export const MemberSearchResultCard = ({ member }) => {
         </div>  
         </>
     )
-    
-
 }
