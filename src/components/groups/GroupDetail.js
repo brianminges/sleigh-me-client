@@ -204,15 +204,16 @@ export const GroupDetail = () => {
                     </div>
                 </section>
 
-                <section>
-                { (group.partners[0]?.receiver)
+                <section className="navbar__with__assignments">
+                    <NavBar/>
+                {/* { (group.partners[0]?.receiver)
                     ?
                     <article className="navbar__with__assignments">
                         <NavBar />
                     </article>
                     :
                     null
-                }
+                } */}
                 </section>
             </article>
             </>
