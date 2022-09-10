@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faCirclePlus, faUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faCirclePlus, faUser, faRightFromBracket, faWindowMinimize } from '@fortawesome/free-solid-svg-icons'
 import "./../SleighMe.css"
 import "./NavBar.css"
 
@@ -45,23 +45,25 @@ export const NavBar = () => {
             </div>
 
             <div className="navbar__item">
-                <Link to={`/members/${userId}/profile`}>
+                <a onClick={() => {window.location.href=`/members/${userId}/profile`}}>
                     <div>
                         <FontAwesomeIcon icon={faUser} />  
                     </div>
                     <div > 
                         <p className="navbar__label">Profile</p>
                     </div>
-                </Link>
+                </a>
             </div>
 
             <div className="navbar__item" id="navbar__item__right">
+                <a onClick={handleLogout} >
                 <div>
-                    <FontAwesomeIcon icon={faRightFromBracket} onClick={handleLogout} /> 
+                    <FontAwesomeIcon icon={faRightFromBracket}  /> 
                 </div>
                 <div>
                     <p className="navbar__label">Logout</p>
                 </div>
+                </a>
             </div>
         </div>
         </>
