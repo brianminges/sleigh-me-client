@@ -36,7 +36,7 @@ export const GroupDetail = () => {
         let finalPartners = []
         for (let i = 0; i < arr1.length; i++) {
             if (arr1[i] === arr2[i]) {
-                window.alert('bad shuffle')
+                window.alert("Oops! A user was paired with himself. We'll try again.")
                 finalPartners = []
                 break
             } else {
@@ -52,7 +52,7 @@ export const GroupDetail = () => {
             finalPartners.forEach(partner => (
                 addPartners(partner)
             ))
-            window.alert('Get shopping!')
+            window.alert('Success!')
             setSantaBtn(false)
             window.location.reload()
         }
