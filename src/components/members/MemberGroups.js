@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getMemberById, leaveGroup } from "./MemberManager";
+import { deleteGroup } from "./../groups/GroupManager"
 import { MemberGroupCard } from "./MemberGroupCard";
 import { NavBar } from "../nav/NavBar";
 import "./MemberGroupCard.css"
@@ -22,6 +23,10 @@ export const MemberGroups = () => {
            .then(() => window.location.reload())
    }
 
+   const handleDeleteGroup = (groupId) => {
+        deleteGroup(groupId)
+            .then(() => window.location.reload())
+   }
    
     if ((member.groups)?.length > 0) {
         return (
@@ -36,6 +41,7 @@ export const MemberGroups = () => {
                         key={group.id}
                         group={group}
                         handleLeaveGroup={handleLeaveGroup} 
+                        handleDeleteGroup={handleDeleteGroup}
                         />
                 )}
             </article>
