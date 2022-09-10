@@ -1,9 +1,7 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-// import { leaveGroup } from "../members/MemberManager";
+import { Link } from "react-router-dom";
 
 export const MemberGroupCard = ( { group, handleLeaveGroup, handleDeleteGroup }) => {
-    // const history = useNavigate();
     const userId = localStorage.getItem("userId")
 
     // Checks to see if current user created the group. If so, user gets first 'return' statement. If not, gets second. 
