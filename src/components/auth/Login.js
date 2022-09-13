@@ -45,7 +45,7 @@ export const Login = ({ setUserId, setToken }) => {
         <main className="container__auth">
             <dialog className="dialog dialog--auth" ref={invalidDialog}>
                 <div>Username or password was not valid.</div>
-                <button className="button--close" onClick={e => invalidDialog.current.close()}>Close</button>
+                <button className="modal__btn__mini" onClick={e => invalidDialog.current.close()}>Close</button>
             </dialog>
             <img src={"./../../images/sleigh.png"} alt="Santa guides his reindeer over evergreens" />
             <section>

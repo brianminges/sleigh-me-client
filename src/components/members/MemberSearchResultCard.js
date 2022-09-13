@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { getGroupById } from "../groups/GroupManager";
 import { joinGroup } from "./MemberManager"
 import "../members/MemberSearchResultCard.css"
+import "./../SleighMe.css"
 
 export const MemberSearchResultCard = ({ member }) => {
     const [group, setGroup] = useState({});

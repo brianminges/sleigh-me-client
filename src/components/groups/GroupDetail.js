@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getGroupById } from "./GroupManager"
 import { addPartners } from "../partners/PartnerManager";
@@ -10,7 +10,9 @@ export const GroupDetail = () => {
     const {groupId} = useParams();
     const userId = parseInt(localStorage.getItem("userId"));
     const [ santaBtn, setSantaBtn ] = useState(true);
-    const [ partner, setPartner ] = useState({})
+    const [ partner, setPartner ] = useState({});
+    // const badShuffleDialog = useRef()
+    const goodShuffleDialog = useRef();
 
     useEffect(() => {
         getGroupById(groupId)
@@ -36,9 +38,9 @@ export const GroupDetail = () => {
         let finalPartners = []
         for (let i = 0; i < arr1.length; i++) {
             if (arr1[i] === arr2[i]) {
-                window.alert("Oops! A user was paired with himself. We'll try again.")
+                // badShuffleDialog.current.showModal()
                 finalPartners = []
-                break
+                shuffler()
             } else {
                 const partners = {
                     group: parseInt(groupId),
@@ -52,7 +54,7 @@ export const GroupDetail = () => {
             finalPartners.forEach(partner => (
                 addPartners(partner)
             ))
-            window.alert('Success!')
+            goodShuffleDialog.current.showModal()
             setSantaBtn(false)
             window.location.reload()
         }
@@ -132,6 +134,14 @@ export const GroupDetail = () => {
         return (
             <>
             <article className="group__detail">
+            {/* <dialog className="dialog" ref={badShuffleDialog}>
+                <div>Oops! A user was paired with himself. Try again.</div>
+                <button className="modal__btn__mini" onClick={e => badShuffleDialog.current.close()}>Close</button>
+            </dialog>  */}
+            <dialog className="dialog" ref={goodShuffleDialog}>
+                <div>Success!</div>
+                <button className="modal__btn__mini" onClick={e => goodShuffleDialog.current.close()}>Close</button>
+            </dialog>
             <h2>{group.name}</h2>
                 <section>
                     <div className="group__detail__infobox">
