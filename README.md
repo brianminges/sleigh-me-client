@@ -1,3 +1,4 @@
+![loginpage](https://user-images.githubusercontent.com/91277363/189794714-bd579e33-4c83-4740-9e15-12a9901fc02e.png)
 # Sleigh Me: a Secret Santa app
 An app to play Secret Santa with remote friends and family
 
@@ -28,7 +29,7 @@ This project features full CRUD capabilities. The login and registration code we
 + All users have a unique profile with option to add an address that is visible only to them and their Secret Santa.
 
 ## Selected pages and features
- 
+![login](https://user-images.githubusercontent.com/91277363/189794474-7bc16f44-3af4-4ff7-a0c8-90173c6a6525.gif)
 
 ## Wireframe
 ![wireframe](https://user-images.githubusercontent.com/91277363/189782942-276560d9-24f9-4641-8ac6-16023815a6f0.png)
