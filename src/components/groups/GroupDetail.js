@@ -11,7 +11,7 @@ export const GroupDetail = () => {
     const userId = parseInt(localStorage.getItem("userId"));
     const [ santaBtn, setSantaBtn ] = useState(true);
     const [ partner, setPartner ] = useState({});
-    // const badShuffleDialog = useRef()
+    const badShuffleDialog = useRef()
     const goodShuffleDialog = useRef();
 
     useEffect(() => {
@@ -38,9 +38,9 @@ export const GroupDetail = () => {
         let finalPartners = []
         for (let i = 0; i < arr1.length; i++) {
             if (arr1[i] === arr2[i]) {
-                // badShuffleDialog.current.showModal()
+                badShuffleDialog.current.showModal()
                 finalPartners = []
-                shuffler()
+                break
             } else {
                 const partners = {
                     group: parseInt(groupId),
@@ -50,14 +50,14 @@ export const GroupDetail = () => {
                 finalPartners.push(partners)
             }
 
-        if (finalPartners.length === arr1.length) {
-            finalPartners.forEach(partner => (
-                addPartners(partner)
-            ))
-            goodShuffleDialog.current.showModal()
-            setSantaBtn(false)
-            window.location.reload()
-        }
+            if (finalPartners.length === arr1.length) {
+                finalPartners.forEach(partner => (
+                    addPartners(partner)
+                ))
+                goodShuffleDialog.current.showModal()
+                setSantaBtn(false)
+                window.location.reload()
+            }
         }
     }
 
@@ -134,10 +134,10 @@ export const GroupDetail = () => {
         return (
             <>
             <article className="group__detail">
-            {/* <dialog className="dialog" ref={badShuffleDialog}>
+            <dialog className="dialog" ref={badShuffleDialog}>
                 <div>Oops! A user was paired with himself. Try again.</div>
                 <button className="modal__btn__mini" onClick={e => badShuffleDialog.current.close()}>Close</button>
-            </dialog>  */}
+            </dialog> 
             <dialog className="dialog" ref={goodShuffleDialog}>
                 <div>Success!</div>
                 <button className="modal__btn__mini" onClick={e => goodShuffleDialog.current.close()}>Close</button>
