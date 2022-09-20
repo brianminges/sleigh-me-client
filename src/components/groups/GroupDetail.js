@@ -38,9 +38,11 @@ export const GroupDetail = () => {
         let finalPartners = []
         for (let i = 0; i < arr1.length; i++) {
             if (arr1[i] === arr2[i]) {
-                badShuffleDialog.current.showModal()
+                // badShuffleDialog.current.showModal()
+                // finalPartners = []
+                // break
                 finalPartners = []
-                break
+                shuffler()
             } else {
                 const partners = {
                     group: parseInt(groupId),
@@ -50,14 +52,22 @@ export const GroupDetail = () => {
                 finalPartners.push(partners)
             }
 
-            if (finalPartners.length === arr1.length) {
-                finalPartners.forEach(partner => (
-                    addPartners(partner)
-                ))
-                goodShuffleDialog.current.showModal()
-                setSantaBtn(false)
-                window.location.reload()
-            }
+            // if (finalPartners.length === arr1.length) {
+            //     finalPartners.forEach(partner => (
+            //         addPartners(partner)
+            //     ))
+            //     goodShuffleDialog.current.showModal()
+            //     setSantaBtn(false)
+            //     window.location.reload()
+            // }
+        }
+        if (finalPartners.length === arr1.length) {
+            finalPartners.forEach(partner => (
+                addPartners(partner)
+            ))
+            goodShuffleDialog.current.showModal()
+            setSantaBtn(false)
+            window.location.reload()
         }
     }
 
